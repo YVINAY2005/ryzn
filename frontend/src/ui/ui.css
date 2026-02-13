@@ -1,0 +1,160 @@
+.ui-button {
+  padding: 0.6rem 1.2rem;
+  border-radius: var(--radius);
+  font-weight: 600;
+  cursor: pointer;
+  border: 1px solid var(--border);
+  background: rgba(255, 255, 255, 0.05);
+  color: var(--foreground);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  font-size: 0.9rem;
+}
+
+.ui-button:hover {
+  background: rgba(255, 255, 255, 0.1);
+  transform: translateY(-1px);
+  border-color: rgba(255, 255, 255, 0.2);
+}
+
+.ui-button-primary {
+  background: linear-gradient(135deg, var(--primary) 0%, var(--accent) 100%);
+  color: white;
+  border: none;
+  box-shadow: 0 4px 14px 0 rgba(59, 130, 246, 0.3);
+}
+
+.ui-button-primary:hover {
+  background: linear-gradient(135deg, #2563eb 0%, #7c3aed 100%);
+  box-shadow: 0 6px 20px 0 rgba(59, 130, 246, 0.4);
+  transform: translateY(-2px);
+}
+
+.ui-card {
+  padding: 1.5rem;
+  border-radius: var(--radius);
+  border: 1px solid var(--border);
+  background: rgba(30, 41, 59, 0.4);
+  backdrop-filter: blur(12px);
+  box-shadow: 0 4px 24px 0 rgba(0, 0, 0, 0.2);
+  transition: transform 0.3s ease;
+}
+
+.ui-card:hover {
+  transform: translateY(-2px);
+  border-color: rgba(255, 255, 255, 0.2);
+}
+
+.ui-input {
+  padding: 0.7rem 1rem;
+  border-radius: var(--radius);
+  border: 1px solid var(--border);
+  background: rgba(2, 6, 23, 0.3);
+  color: var(--foreground);
+  width: 100%;
+  transition: all 0.2s;
+  outline: none;
+}
+
+.ui-input:focus {
+  border-color: var(--primary);
+  box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.2);
+  background: rgba(2, 6, 23, 0.5);
+}
+
+.ui-table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+}
+
+.ui-table th {
+  padding: 1rem;
+  background: rgba(255, 255, 255, 0.03);
+  border-bottom: 1px solid var(--border);
+  text-align: left;
+  font-weight: 600;
+  color: var(--muted-foreground);
+  text-transform: uppercase;
+  font-size: 0.75rem;
+  letter-spacing: 0.05em;
+}
+
+.ui-table td {
+  padding: 1rem;
+  border-bottom: 1px solid var(--border);
+  color: var(--foreground);
+  font-size: 0.9rem;
+}
+
+.ui-table tr:hover td {
+  background: rgba(255, 255, 255, 0.02);
+}
+
+.ui-sidebar {
+  width: 260px;
+  border-right: 1px solid var(--border);
+  height: 100%;
+  padding: 1.5rem;
+  background: rgba(2, 6, 23, 0.4);
+  backdrop-filter: blur(10px);
+}
+
+.ui-navbar {
+  height: 70px;
+  border-bottom: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  padding: 0 2rem;
+  background: rgba(2, 6, 23, 0.4);
+  backdrop-filter: blur(10px);
+}
+
+.ui-modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.8);
+  backdrop-filter: blur(8px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 50;
+  animation: fade-in 0.3s ease-out;
+}
+
+.ui-modal-content {
+  background: var(--muted);
+  padding: 2.5rem;
+  border-radius: var(--radius);
+  max-width: 550px;
+  width: 90%;
+  border: 1px solid var(--border);
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
+}
+
+.ui-chart {
+  width: 100%;
+  height: 240px;
+  background: rgba(255, 255, 255, 0.02);
+  display: flex;
+  align-items: flex-end;
+  gap: 8px;
+  padding: 1.5rem;
+  border-radius: var(--radius);
+  border: 1px solid var(--border);
+}
+
+.ui-chart-bar {
+  flex: 1;
+  background: linear-gradient(to top, var(--primary), var(--accent));
+  border-radius: 4px 4px 0 0;
+  transition: height 1s cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
+}
+
+.ui-chart-bar:hover {
+  filter: brightness(1.2);
+}
