@@ -35,6 +35,14 @@ export const validateCode = (code: string) => {
   }
 
   // 3. Check for Tailwind or arbitrary classes
+  const componentTags = code.match(/<([A-Z][a-zA-Z]*)/g) || [];
+  componentTags.forEach(tag => {
+    const name = tag.substring(1);
+    if (!ALLOWED_COMPONENTS.includes(name) && name !== 'GeneratedUI' && name !== 'React') {
+      errors.push(`Forbidden component: ${name}. Only components from '@/ui' are allowed.`);
+    }
+  });
+
   const classes = code.match(/className=["'](.*?)["']/g) || [];
   classes.forEach(cls => {
     const classList = cls.match(/className=["'](.*?)["']/)?.[1].split(' ') || [];

@@ -1,4 +1,4 @@
-import React, { useState, useCallback, useEffect } from 'react';
+import { useState, useCallback, useEffect } from 'react';
 import { ChatPanel } from './components/ChatPanel';
 import { CodePanel } from './components/CodePanel';
 import { PreviewPanel } from './components/PreviewPanel';
