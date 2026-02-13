@@ -15,9 +15,27 @@ app.use(cors({
 app.use(express.json());
 
 // MongoDB Connection
-mongoose.connect(process.env.MONGODB_URI)
-  .then(() => console.log('Connected to MongoDB (ESM)'))
-  .catch(err => console.error('MongoDB connection error:', err));
+if (!process.env.MONGODB_URI) {
+  console.error('CRITICAL ERROR: MONGODB_URI is not defined in environment variables!');
+}
+
+mongoose.connect(process.env.MONGODB_URI, {
+  serverSelectionTimeoutMS: 5000, // Timeout after 5s instead of 30s
+  socketTimeoutMS: 45000,
+})
+  .then(() => console.log('Successfully connected to MongoDB Atlas'))
+  .catch(err => {
+    console.error('MongoDB Connection Error Status:');
+    console.error('- Message:', err.message);
+    console.error('- Code:', err.code);
+    if (err.message.includes('IP not whitelisted')) {
+      console.error('ACTION REQUIRED: You must whitelist your deployment IP (Render) in MongoDB Atlas!');
+    }
+  });
+
+// Connection state monitoring
+mongoose.connection.on('error', err => console.error('Mongoose secondary error:', err));
+mongoose.connection.on('disconnected', () => console.log('Mongoose disconnected from MongoDB'));
 
 const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY);
 const primaryModel = genAI.getGenerativeModel({ model: "gemini-flash-latest" });
@@ -183,6 +201,12 @@ app.post('/api/generate', async (req, res) => {
 
 app.get('/api/versions', async (req, res) => {
   try {
+    if (mongoose.connection.readyState !== 1) {
+      return res.status(503).json({ 
+        error: 'Database connection is not ready. Please check if MONGODB_URI is correct and IP is whitelisted.',
+        status: mongoose.connection.readyState
+      });
+    }
     const versions = await UIVersion.find().sort({ version: -1 });
     res.json(versions);
   } catch (error) {
